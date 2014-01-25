@@ -1,0 +1,38 @@
+table.HBschedule {
+	width: 90%;
+	}
+	
+table.HBschedule td,
+table.HBschedule th {
+	padding: 0.25em 0.5em;
+	}
+
+table.HBschedule.HBhighlight tr:hover td {
+	/*background: #23B;
+	color: #fff;*/
+	cursor: default;
+	}
+	
+
+table.HBschedule.HBhighlight tr:hover a,
+table.HBschedule.HBhighlight tr:hover a:link {
+	/*color: #fff;*/
+	}	
+
+table.HBschedule th {
+	text-align: center;
+	}
+
+table.HBschedule td {
+	text-align: right;
+	border: 0;
+	}
+
+table.HBschedule .textteam {
+	text-align: left;
+	}
+	
+table.HBschedule .heim {
+	font-weight: bold;
+}
+
