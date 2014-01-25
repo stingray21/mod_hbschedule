@@ -1,21 +1,25 @@
 <?php 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+// set date/time
+date_default_timezone_set('Europe/Berlin');
+setlocale (LC_TIME, 'de_DE');
 
-$document =& JFactory::getDocument();
+$document = JFactory::getDocument();
 $document->addStyleSheet(JURI::base() . 'modules/mod_hbschedule/css/hbschedule.css');
 $document->addStyleSheet(JURI::base() . 'modules/mod_hbschedule/css/default.css');
 
-if (count($rows)>0) 
-{
+//echo "<pre>"; print_r($rows); echo "</pre>";
 
-//echo "<p>".JText::_('DESC_MODULE')."</p>";
+if (count($rows)>0)
+{
+	//echo "<p>".JText::_('DESC_MODULE')."</p>";
 	
 	// Headline
 	echo '<h3>';
 	switch ($headline)
 	{
-		case 'title': 
+		case 'title':
 			echo 'Spielplan';
 			break;
 		case 'not':
@@ -33,53 +37,87 @@ if (count($rows)>0)
 	
 	echo "\n\t<table class=\"HBschedule HBhighlight\">\n";
 	echo "\t\t<thead>\n";
-	echo "\t\t<tr><th colspan=\"3\">Wann</th><th>Halle</th><th>Heim</th><th></th><th>Gast</th><th colspan=\"3\">Ergebnis</th>";
+	echo "\t\t<tr><th colspan=\"3\">Wann</th><th>Halle</th><th class=\"rightalign\">Heim</th><th></th><th class=\"leftalign\">Gast</th><th colspan=\"3\">Ergebnis</th>";
+	echo "<th> </th>";
 	if ($recaps > 0) echo "<th> </th>";
 	echo "</tr>\n";
 	echo "\t\t</thead>\n\n";
 	
 	
 	echo "\t\t<tbody>\n";
-	foreach ($rows as $row) {
+	foreach ($rows as $row)
+	{
 		// switch color of background
 		$background = !$background;
 		// check value of background
 		switch ($background) {
 			case true: $backgroundColor = 'odd'; break;
 			case false: $backgroundColor = 'even'; break;
+		}
+		
+		$resultColor = "";
+		if (!empty($row->toreHeim) && !empty($row->toreGast))
+		{
+				
+			// check which team is geislingen
+			if ($row->heim == $mannschaft->name)
+			{
+				$goals_geislingen = $row->toreHeim;
+				$goals_opponent = $row->toreGast;
 			}
-		// format date
-		$date = strftime('%d.%m.%Y', strtotime($row->datum));
-		
-		
+			else
+			{
+				$goals_geislingen = $row->toreGast;
+				$goals_opponent = $row->toreHeim;
+			}
+			if ($goals_geislingen > $goals_opponent)
+			{
+				$resultColor = " won";
+			}
+			elseif ($goals_geislingen < $goals_opponent)
+			{
+				$resultColor = " lost";
+			}
+			else
+			{
+				$resultColor = " tied";
+			}
+		}
+	
 		// row in HBschedule table
-		echo "\t\t\t<tr class=\"{$backgroundColor}\">";
-		echo "<td>{$row->Tag}{$resultColor}</td><td>{$date}</td><td>".substr($row->Zeit,0,5)." Uhr</td>";
-		echo "<td><a href=\"LINK ZU HALLE\">{$row->Halle}</a></td>";
-		echo "<td".markHomeInSchedule($row->Heim, $teamNames, true).">{$row->Heim}</td><td>-</td>";
-		echo "<td".markHomeInSchedule($row->Gast, $teamNames, true).">{$row->Gast}</td>";
-		if ($row->Bemerkung == "abge..")
+		echo "\t\t\t<tr class=\"{$backgroundColor}{$resultColor}\">";
+		echo "<td class=\"wann leftalign\">".strftime('%a', strtotime($row->datum))."</td>";
+		echo "<td class=\"wann leftalign\">".strftime('%d.%m.%Y', strtotime($row->datum))."</td>";
+		echo "<td class=\"wann leftalign\">".substr($row->uhrzeit,0,5)." Uhr</td>";
+		echo "<td><a href=\"LINK ZU HALLE\">{$row->hallenNummer}</a></td>";
+		echo "<td class=\"rightalign".markHeimInSpielplan($row->heim, $mannschaft->name)."\">{$row->heim}</td><td>-</td>";
+		echo "<td class=\"leftalign".markHeimInSpielplan($row->gast, $mannschaft->name)."\">{$row->gast}</td>";
+		if ($row->bemerkung == "abge..")
 		{
-			echo "<td colspan=\"3\">abgesagt</td></tr>";
+		echo "<td colspan=\"3\">abgesagt</td></tr>";
 		}
-		else
-		{
-			echo "<td".markHomeInSchedule($row->Heim, $teamNames, true).">{$row->ToreHeim}</td><td>:</td>";
-			echo "<td".markHomeInSchedule($row->Gast, $teamNames, true).">{$row->ToreGast}</td>";
-		}
-		if ($recaps > 0) {
+			else
+			{
+			echo "<td class=\"rightalign".markHeimInSpielplan($row->heim, $mannschaft->name)."\">{$row->toreHeim}</td><td>:</td>";
+			echo "<td class=\"leftalign".markHeimInSpielplan($row->gast, $mannschaft->name)."\">{$row->toreGast}</td>";
+			}
+			// result marker
+			if (!empty($row->toreHeim) && !empty($row->toreGast)) echo "<td class=\"resultsymbol{$resultColor}\"><img src=\"".JURI::root()."modules/mod_hbschedule/images/".trim($resultColor).".gif\"/></td>";
+		else echo "<td></td>";
+		// game reports
+			if ($recaps > 0) {
 			echo "<td>";
-			if (!empty($row->Berichte)) {
-				echo "<a href=\"".strtolower($teamkey)."berichte.php#{$row->SpielNR}\">";
-				echo "<img src=\"".JURI::root()."modules/mod_hbschedule/images/page_white_text.png\" title=\"zum Spielbericht\" alt=\"zum Spielbericht\"/>";
+			if (!empty($row->berichte)) {
+			echo "<a href=\"".strtolower($teamkey)."berichte.php#{$row->SpielNR}\">";
+			echo "<img src=\"".JURI::root()."modules/mod_hbschedule/images/page_white_text.png\" title=\"zum Spielbericht\" alt=\"zum Spielbericht\"/>";
 				}
 			echo "</td>";
 			}
-		echo "</td></tr>\n";
-		}
+			echo "</td></tr>\n";
+	}
 	echo "\t\t</tbody>\n\n";
 	echo "\t</table>\n\n";
 	
 	if ($posLeague == 'underneath') echo '<p>Spielklasse: '.$mannschaft->liga.' ('.$mannschaft->ligaKuerzel.')</p>';
-	
 }
+	
