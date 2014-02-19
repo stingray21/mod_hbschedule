@@ -86,9 +86,12 @@ if (count($rows)>0)
 	
 		// row in HBschedule table
 		echo "\t\t\t<tr class=\"{$backgroundColor}{$resultColor}\">";
-		$date = JFactory::getDate(strtotime($row->datum));
-		echo "<td class=\"wann leftalign\">".$date->toFormat('%a')."</td>";
-		echo "<td class=\"wann leftalign\">".$date->toFormat('%d.%m.%Y')."</td>";
+		echo "<td class=\"wann leftalign\">";
+		echo JHtml::_('date', $row->datum, 'D', false);
+		echo "</td>";
+		echo "<td class=\"wann leftalign\">";
+		echo JHtml::_('date', $row->datum, 'd.m.y', false);
+		echo "</td>";
 		echo "<td class=\"wann leftalign\">".substr($row->uhrzeit,0,5)." Uhr</td>";
 		echo "<td><a href=\"LINK ZU HALLE\">{$row->hallenNummer}</a></td>";
 		echo "<td class=\"rightalign".markHeimInSpielplan($row->heim, $mannschaft->name)."\">{$row->heim}</td><td>-</td>";

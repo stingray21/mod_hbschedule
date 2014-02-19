@@ -1,5 +1,11 @@
 table.HBschedule {
 	width: 90%;
+	margin-bottom: 0.2em;
+	}
+
+table.HBschedule+p {
+	margin-left: 1em;
+	color: #999;
 	}
 	
 table.HBschedule td,
@@ -20,11 +26,11 @@ table.HBschedule.HBhighlight tr:hover a:link {
 	}	
 
 table.HBschedule th {
-	text-align: center;
+	text-align: left;
 	}
 
 table.HBschedule td {
-	text-align: right;
+	text-align: left;
 	border: 0;
 	}
 
@@ -36,3 +42,6 @@ table.HBschedule .heim {
 	font-weight: bold;
 }
 
+table.HBschedule .hostteam {
+	text-align: right;
+}
