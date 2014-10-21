@@ -33,7 +33,7 @@ $document->addStyleSheet(JURI::base() . 'modules/mod_hbschedule/css/default.css'
 	
 	echo "\n\t<table class=\"HBschedule HBhighlight\">\n";
 	echo "\t\t<thead>\n";
-	echo "\t\t<tr><th colspan=\"3\">Wann</th><th>Halle</th><th class=\"hostteam\">Heim</th><th></th><th>Gast</th><th colspan=\"3\">Ergebnis</th>";
+	echo "\t\t<tr><th colspan=\"2\">Datum</th><th>Zeit</th><th>Halle</th><th class=\"hostteam\">Heim</th><th></th><th>Gast</th><th colspan=\"3\">Ergebnis</th>";
 	echo "<th> </th>";
 	if ($recaps > 0) echo "<th> </th>";
 	echo "</tr>\n";
@@ -86,7 +86,7 @@ $document->addStyleSheet(JURI::base() . 'modules/mod_hbschedule/css/default.css'
 		echo JHtml::_('date', $row->datum, 'D', false);
 		echo "</td><td>";
 		echo JHtml::_('date', $row->datum, 'd.m.y', false);
-		echo "</td><td>".substr($row->uhrzeit,0,5)." Uhr</td>";
+		echo "</td><td>".substr($row->uhrzeit,0,5)."</td>";
 		echo "<td><a href=\"LINK ZU HALLE\">{$row->hallenNummer}</a></td>";
 		echo "<td class=\"hostteam".markHomeInSchedule($row->heim, $team->nameKurz, false)."\" >{$row->heim}</td><td>-</td>";
 		echo "<td".markHomeInSchedule($row->gast, $team->nameKurz, true).">{$row->gast}</td>";

@@ -1,5 +1,5 @@
 table.HBschedule {
-	width: 90%;
+	width: 100%;
 	margin-bottom: 0.2em;
 	}
 
@@ -10,7 +10,7 @@ table.HBschedule+p {
 	
 table.HBschedule td,
 table.HBschedule th {
-	padding: 0.25em 0.5em;
+	padding: 0.25em 0.2em;
 	}
 
 table.HBschedule.HBhighlight tr:hover td {

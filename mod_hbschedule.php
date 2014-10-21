@@ -5,7 +5,8 @@ defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 //This is the parameter we get from our xml file above
 $checkForGameReports = $params->get('checkForGameReports');
 $posLeague = $params->get('posLeague');
-$headline = $params->get('headline');
+$headlineOption = $params->get('headline');
+
 
 // get parameter from component menu item
 $menuitemid = JRequest::getInt('Itemid');
@@ -14,13 +15,19 @@ if ($menuitemid)
 	$menu = JFactory::getApplication()->getMenu();
 	$menuparams = $menu->getParams( $menuitemid );
 }
-$kuerzel = $menuparams->get('teamkey');
+$teamkey = $menuparams->get('teamkey');
 
 //$posLeague = $menuparams->get('posLeague');
 //$headline = $menuparams->get('headline');
 
 // Include the syndicate functions only once
 require_once dirname(__FILE__).'/helper.php';
+
+$team = modHbScheduleHelper::getTeam($teamkey);
+$schedule = modHbScheduleHelper::getSchedule($team);
+$recaps = modHbScheduleHelper::getReportNr($team);
+//echo "<pre>"; print_r($schedule); echo "</pre>";
+$headline = modHbScheduleHelper::getHeadline($headlineOption, $team);
 
 //Returns the path of the layout file
 require JModuleHelper::getLayoutPath('mod_hbschedule', $params->get('layout', 'default'));
