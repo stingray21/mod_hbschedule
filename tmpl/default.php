@@ -43,7 +43,7 @@ if (count($schedule)>0)
 		
 	
 		// row in HBschedule table
-		echo "\t\t\t<tr class=\"{$row->background}{$row->ampel}\">";
+		echo "\t\t\t<tr class=\"{$row->background}\">";
 		echo "<td class=\"wann leftalign\">";
 		echo JHtml::_('date', $row->datum, 'D', false);
 		echo "</td>";

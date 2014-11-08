@@ -22,7 +22,7 @@ class modHbScheduleHelper
      * @access public
      */   
     
-    public function getTeam($teamkey)
+    public static function getTeam($teamkey)
     {
         // getting further Information of the team
         $db = JFactory::getDBO();
@@ -91,7 +91,7 @@ class modHbScheduleHelper
     }
     
     
-    protected function addBackground ($schedule)
+    protected static function addBackground ($schedule)
     {
         $background = false;
         foreach ($schedule as $row)
@@ -112,7 +112,7 @@ class modHbScheduleHelper
         return $schedule;
     }
     
-    protected function addResult ($schedule)
+    protected static function addResult ($schedule)
     {
         foreach ($schedule as $row)
 	{
@@ -124,7 +124,7 @@ class modHbScheduleHelper
                     (!$row->heimspiel && $row->ergebnis == 1)) {
                 $row->ampel = " lost";
             }
-            elseif ($row->ergebnis === 0) {
+            elseif ($row->ergebnis == 0) {
                 $row->ampel = " tied";
             }
             else {
@@ -134,22 +134,22 @@ class modHbScheduleHelper
         return $schedule;
     }
     
-        public function getHeadline ($option, $team)
+	public static function getHeadline ($option, $team)
     {
         switch ($option)
-	{
-            case 'title':
-                $headline = JText::_('MOD_HBSCHEDULE_SCHEDULE');
-                break;
-            case 'not':
-                $headline = '';
-                break;
-            case 'titleandteam':
-            default:
-                $headline = JText::_('MOD_HBSCHEDULE_SCHEDULE').' - '.
-                    $team->team;
-                break;
-	}
+		{
+			case 'title':
+				$headline = JText::_('MOD_HBSCHEDULE_SCHEDULE');
+				break;
+			case 'not':
+				$headline = '';
+				break;
+			case 'titleandteam':
+			default:
+				$headline = JText::_('MOD_HBSCHEDULE_SCHEDULE').' - '.
+					$team->team;
+				break;
+		}
         return $headline;
     }
 }
