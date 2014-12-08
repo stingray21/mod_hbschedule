@@ -1,11 +1,13 @@
 <?php 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+$tz = false; //true: user-time, false:server-time
+
 $document = JFactory::getDocument();
-$document->addStyleSheet(JURI::base().'modules/mod_hbschedule/css/hbschedule.css');
 $document->addStyleSheet(JURI::base().'modules/mod_hbschedule/css/default.css');
 
-//echo "<pre>"; print_r($rows); echo "</pre>";
+
+//echo __FILE__.'('.__LINE__.'):<pre>';print_r($schedule);echo'</pre>';
 
 if (count($schedule)>0)
 {
@@ -28,10 +30,11 @@ if (count($schedule)>0)
 	echo "\t\t<thead>\n";
 	echo "\t\t<tr><th colspan=\"3\">Wann</th><th>Halle</th>"
                 . "<th class=\"rightalign\">Heim</th><th></th>"
-                . "<th class=\"leftalign\">Gast</th>"
-                . "<th colspan=\"3\">Ergebnis</th>";
-	echo "<th> </th>";
-	//if ($recaps > 0) echo "<th> </th>";
+                . "<th class=\"leftalign\">Gast</th>";
+    echo '<th colspan="';
+	echo $indicator ? 4 : 3;
+	echo '">Ergebnis</th>';
+	if ($reports) echo "<th> </th>";
 	echo "</tr>\n";
 	echo "\t\t</thead>\n\n";
 	
@@ -43,14 +46,16 @@ if (count($schedule)>0)
 		
 	
 		// row in HBschedule table
-		echo "\t\t\t<tr class=\"{$row->background}\">";
+		echo "\t\t\t<tr class=\"{$row->background}{$row->ampel}\">";
 		echo "<td class=\"wann leftalign\">";
 		echo JHtml::_('date', $row->datum, 'D', false);
 		echo "</td>";
 		echo "<td class=\"wann leftalign\">";
-		echo JHtml::_('date', $row->datum, 'd.m.y', false);
+		echo JHtml::_('date', $row->datum, 'd.m.y', $tz);
 		echo "</td>";
-		echo "<td class=\"wann leftalign\">".substr($row->uhrzeit,0,5)." Uhr</td>";
+		echo "<td class=\"wann leftalign\">";
+		echo JHtml::_('date', $row->uhrzeit, 'H:i', $tz);
+		echo " Uhr</td>";
 		echo "<td><a href=\"LINK ZU HALLE\">{$row->hallenNr}</a></td>";
 		echo "<td class=\"rightalign";
                 if ($row->heimspiel) echo ' heim';
@@ -64,30 +69,42 @@ if (count($schedule)>0)
 		}
 			else
 			{
-			echo "<td class=\"rightalign".
-                                //markHeimInSpielplan($row->heim, $team->name).
-                                "\">{$row->toreHeim}</td><td>:</td>";
-			echo "<td class=\"leftalign".
-                                //markHeimInSpielplan($row->gast, $team->name).
-                                "\">{$row->toreGast}</td>";
+			echo "<td class=\"rightalign";
+                        if ($row->heimspiel) echo ' heim';        
+						echo "\">{$row->toreHeim}</td><td>:</td>";
+			echo "<td class=\"leftalign";
+                        if (!$row->heimspiel) echo ' heim';        
+						echo "\">{$row->toreGast}</td>";
 			}
 			// result marker
-			if (!empty($row->toreHeim) && !empty($row->toreGast)) echo "<td class=\"resultsymbol{$row->ampel}\"><img src=\"".JURI::root()."modules/mod_hbschedule/images/".trim($row->ampel).".gif\"/></td>";
-		else echo "<td></td>";
-		// game reports
-			if ($recaps > 0) {
-			echo "<td>";
-			if (!empty($row->berichte)) {
-			echo "<a href=\"".strtolower($teamkey)."berichte.php#{$row->SpielNR}\">";
-			echo "<img src=\"".JURI::root()."modules/mod_hbschedule/images/page_white_text.png\" title=\"zum Spielbericht\" alt=\"zum Spielbericht\"/>";
+			if ($indicator)	
+			{
+				echo '<td>';
+				if (!empty($row->toreHeim) && !empty($row->toreGast)){
+					echo '<span class="indicator '.$row->ampel.'"></span>';
 				}
-			echo "</td>";
+				echo '</td>';
 			}
-			echo "</td></tr>\n";
+		// game reports
+			if ($reports) 
+			{
+				echo "<td>";
+				if (!empty($row->berichte)) {
+					echo "<a href=\"".strtolower($teamkey).
+							"berichte.php#{$row->spielIdHvw}\">";
+					echo '<img src="'.JURI::root()
+						. 'modules/mod_hbschedule/images/page_white_text.png"'
+						. ' title="zum Spielbericht" alt="zum Spielbericht"/>';
+				}
+				echo "</td>";
+			}
+			echo "</tr>\n";
 	}
 	echo "\t\t</tbody>\n\n";
 	echo "\t</table>\n\n";
 	
-	if ($posLeague == 'underneath') echo '<p>Spielklasse: '.$team->liga.' ('.$team->ligaKuerzel.')</p>';
+	if ($posLeague == 'underneath') {
+		echo '<p>Spielklasse: '.$team->liga.' ('.$team->ligaKuerzel.')</p>';
+	}
 }
 	

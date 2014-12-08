@@ -62,15 +62,6 @@
 					description="">
 				</field>
 				<field 
-					name="checkForGameReports" 
-					type="radio" 
-					default="0" 
-					label="LABEL_MODHBSCHEDULE_CHECKGAMEREPORTS" 
-					description="DESC_MODHBSCHEDULE_CHECKGAMEREPORTS">
-						<option value="0">JNO</option>
-						<option value="1">JYES</option>
-				</field>
-				<field 
 					name="posLeague" 
 					type="list" 
 					default="above" 
@@ -91,13 +82,22 @@
 						<option value="not">MODHBSCHEDULE_HEADLINE_NOT</option>
 				</field>
 				<field
-					name="layout"
+					name="indicator"
 					type="list"
 					default="default"
-					label="LABEL_MODHBSCHEDULE_LAYOUT"
-					description="DESC_MODHBSCHEDULE_LAYOUT">
-					<option value="default">MODHBSCHEDULE_LAYOUT_DEFAULT</option>
-					<option value="win_lost_tied">MODHBSCHEDULE_LAYOUT_WINLOSTIED</option>
+					label="LABEL_MODHBSCHEDULE_INDICATOR"
+					description="DESC_MODHBSCHEDULE_INDICATOR">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+				<field
+					name="reports"
+					type="list"
+					default="default"
+					label="LABEL_MODHBSCHEDULE_REPORTS"
+					description="DESC_MODHBSCHEDULE_REPORTS">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
 				</field>
 			</fieldset>
 		</fields>
