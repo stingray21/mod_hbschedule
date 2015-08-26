@@ -25,19 +25,16 @@
 		<filename module="mod_hbschedule">mod_hbschedule.php</filename>
 		<filename>index.html</filename>
 		<filename>helper.php</filename>
-		<filename>tmpl/default.php</filename>
-		<filename>tmpl/win_lost_tied.php</filename>
-		<filename>tmpl/index.html</filename>
-		<filename>css/default.css</filename>
-		<filename>css/hbschedule.css</filename>
-		<filename>css/win_lost_tied.css</filename>
-		<filename>css/index.html</filename>
-		<filename>images/lost.gif</filename>
-		<filename>images/tied.gif</filename>
-		<filename>images/won.gif</filename>
-		<filename>images/page_white_text.png</filename>
+		<folder>tmpl</folder>
+		<folder>css</folder>
 	</files>
 
+	<media destination="mod_hbschedule" folder="media">
+		<filename>index.html</filename>
+		<folder>css</folder>
+		<folder>images</folder>
+	</media>
+	
 	<languages>
 		<!-- Any language files included with the module -->
 		<language tag="de-DE">language/de-DE.mod_hbschedule.ini</language>
@@ -62,15 +59,6 @@
 					description="">
 				</field>
 				<field 
-					name="checkForGameReports" 
-					type="radio" 
-					default="0" 
-					label="LABEL_MODHBSCHEDULE_CHECKGAMEREPORTS" 
-					description="DESC_MODHBSCHEDULE_CHECKGAMEREPORTS">
-						<option value="0">JNO</option>
-						<option value="1">JYES</option>
-				</field>
-				<field 
 					name="posLeague" 
 					type="list" 
 					default="above" 
@@ -90,14 +78,32 @@
 						<option value="titleandteam">MODHBSCHEDULE_HEADLINE_TITLEANDTEAM</option>
 						<option value="not">MODHBSCHEDULE_HEADLINE_NOT</option>
 				</field>
+				<field 
+					name="timezone" 
+					type="list" 
+					default="above" 
+					label="LABEL_MODHBSCHEDULE_TIMEZONE" 
+					description="DESC_MODHBSCHEDULE_TIMEZONE">
+						<option value="true">MODHBSCHEDULE_TIMEZONE_USER</option>
+						<option value="false">MODHBSCHEDULE_TIMEZONE_SERVER</option>
+				</field>
 				<field
-					name="layout"
+					name="indicator"
 					type="list"
 					default="default"
-					label="LABEL_MODHBSCHEDULE_LAYOUT"
-					description="DESC_MODHBSCHEDULE_LAYOUT">
-					<option value="default">MODHBSCHEDULE_LAYOUT_DEFAULT</option>
-					<option value="win_lost_tied">MODHBSCHEDULE_LAYOUT_WINLOSTIED</option>
+					label="LABEL_MODHBSCHEDULE_INDICATOR"
+					description="DESC_MODHBSCHEDULE_INDICATOR">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+				<field
+					name="reports"
+					type="list"
+					default="default"
+					label="LABEL_MODHBSCHEDULE_REPORTS"
+					description="DESC_MODHBSCHEDULE_REPORTS">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
 				</field>
 			</fieldset>
 		</fields>

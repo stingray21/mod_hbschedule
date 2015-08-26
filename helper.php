@@ -32,19 +32,27 @@ class modHbScheduleHelper
         $query->where($db->qn('kuerzel').' = '.$db->q($teamkey));
         $db->setQuery($query);
         $team = $db->loadObject();
-
+		
         //display and convert to HTML when SQL error
         if (is_null($posts=$db->loadRowList())) 
         {
             $jAp->enqueueMessage(nl2br($db->getErrorMsg()),'error');
             return;
         }
+		if (empty($team)){
+			$team = new stdClass();
+			$team->mannschaft = 'Mannschaft';
+			$team->liga = 'Liga';
+			$team->kuerzel = '';
+			$team->nameKurz = '';
+		}
         return $team;
     }
     
     public static function getSchedule( $team )
     {
-        // getting schedule of the team from the DB
+        //echo __FILE__.__LINE__.'<pre>'; print_r($team); echo '</pre>';
+		// getting schedule of the team from the DB
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('*, DATE(datumZeit) as datum, TIME(datumZeit) as uhrzeit, '.
@@ -58,7 +66,7 @@ class modHbScheduleHelper
                 'END AS ergebnis'
                 );
         $query->from($db->qn('hb_spiel'));
-        $query->leftJoin($db->qn('hb_spielbericht').' USING ('.$db->qn('spielIDhvw').')');
+        $query->leftJoin($db->qn('hb_spielbericht').' USING ('.$db->qn('spielIdHvw').')');
         $query->where($db->qn('Kuerzel').' = '.$db->q($team->kuerzel));
         $query->where('('.$db->qn('heim').' = '.$db->q($team->nameKurz).' OR '.
                     $db->qn('gast').' = '.$db->q($team->nameKurz).')');
@@ -74,6 +82,7 @@ class modHbScheduleHelper
         }
         $schedule = self::addBackground($schedule);
         $schedule = self::addResult($schedule);
+		$schedule = self::addHighlightNextGame($schedule);
         return $schedule;
     }
     
@@ -83,7 +92,7 @@ class modHbScheduleHelper
         $query = $db->getQuery(true);
         $query->select('COUNT(*)');
         $query->from($db->qn('hb_spielbericht'));
-        $query->innerJoin($db->qn('hb_spiel').' USING ('.$db->qn('spielIDhvw').')');
+        $query->innerJoin($db->qn('hb_spiel').' USING ('.$db->qn('spielIdHvw').')');
         $query->where($db->qn('Kuerzel').' = '.$db->q($team->kuerzel));
         $db->setQuery($query);
         $recaps = $db->loadResult();
@@ -95,7 +104,7 @@ class modHbScheduleHelper
     {
         $background = false;
         foreach ($schedule as $row)
-	{
+		{
             // switch color of background
             $background = !$background;
             // check value of background
@@ -111,6 +120,21 @@ class modHbScheduleHelper
         }
         return $schedule;
     }
+	
+	protected static function addHighlightNextGame ($schedule)
+    {
+        $highlighted = false;
+        foreach ($schedule as $row)
+		{
+            if (time() < strtotime($row->datum ) && !$highlighted) {
+                $row->highlight = true; 
+				$highlighted = true;
+            } else {
+				$row->highlight = false; 
+			}
+        }
+        return $schedule;
+    }
     
     protected static function addResult ($schedule)
     {
@@ -118,14 +142,14 @@ class modHbScheduleHelper
 	{
             if (($row->heimspiel && $row->ergebnis == 1) ||
                     (!$row->heimspiel && $row->ergebnis == 2)) {
-                $row->ampel = " won";
+                $row->ampel = " win";
             }
             elseif (($row->heimspiel && $row->ergebnis == 2)||
                     (!$row->heimspiel && $row->ergebnis == 1)) {
-                $row->ampel = " lost";
+                $row->ampel = " loss";
             }
             elseif ($row->ergebnis == 0) {
-                $row->ampel = " tied";
+                $row->ampel = " tie";
             }
             else {
                 $row->ampel = "";
