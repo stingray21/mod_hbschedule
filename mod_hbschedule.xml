@@ -6,7 +6,7 @@
 	<!-- Name of the Author -->
 	<author>Jochen Stehle</author> 
 	<!-- Version Date of the Module -->
-	<creationDate>27.02.2013</creationDate> 
+	<creationDate>10.09.2015</creationDate> 
 	<!-- Copyright information -->
 	<copyright>All rights reserved by Jochen Stehle</copyright> 
 	<!-- License Information -->
@@ -16,7 +16,7 @@
 	<!-- Author's website -->
 	<authorUrl></authorUrl> 
 	<!-- Module version number -->
-	<version>1.0.0</version> 
+	<version>0.9.21</version> 
 	<!-- Description of what the module does -->
 	<description>Provides the season standings of a team</description>
 	<!-- Listing of all files that should be installed for the module to function -->
@@ -76,6 +76,15 @@
 						<option value="title">MODHBSCHEDULE_HEADLINE_TITLE</option>
 						<option value="titleandteam">MODHBSCHEDULE_HEADLINE_TITLEANDTEAM</option>
 						<option value="not">MODHBSCHEDULE_HEADLINE_NOT</option>
+				</field>
+				<field 
+					name="dateformat" 
+					type="list" 
+					default="numeric" 
+					label="LABEL_MODHBSCHEDULE_DATEFORMAT" 
+					description="DESC_MODHBSCHEDULE_DATEFORMAT">
+						<option value="numeric">MODHBSCHEDULE_DATEFORMAT_NUMERIC</option>
+						<option value="words">MODHBSCHEDULE_DATEFORMAT_WORDS</option>
 				</field>
 				<field 
 					name="timezone" 

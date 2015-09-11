@@ -18,6 +18,7 @@ if ($menuitemid)
 }
 $teamkey = $menuparams->get('teamkey');
 $timezone = $menuparams->get('timezone'); //true: user-time, false:server-time
+$dateformat = $menuparams->get('dateformat', true); //true: user-time, false:server-time
 
 // Include the syndicate functions only once
 require_once dirname(__FILE__).'/helper.php';

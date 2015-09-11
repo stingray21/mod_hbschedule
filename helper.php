@@ -49,6 +49,18 @@ class modHbScheduleHelper
         return $team;
     }
     
+	private static function getSeason()
+    {
+		$year = strftime('%Y');
+		if (strftime('%m') < 8) {
+			$year = $year-1;
+		}
+		
+		$season = $year."-".($year+1);
+		//echo __FILE__.'('.__LINE__.'):<pre>';print_r($season);echo'</pre>';
+		return $season;
+    }
+	
     public static function getSchedule( $team )
     {
         //echo __FILE__.__LINE__.'<pre>'; print_r($team); echo '</pre>';
@@ -69,7 +81,8 @@ class modHbScheduleHelper
         $query->leftJoin($db->qn('hb_spielbericht').' USING ('.$db->qn('spielIdHvw').')');
         $query->where($db->qn('Kuerzel').' = '.$db->q($team->kuerzel));
         $query->where('('.$db->qn('heim').' = '.$db->q($team->nameKurz).' OR '.
-                    $db->qn('gast').' = '.$db->q($team->nameKurz).')');
+                    $db->qn('gast').' = '.$db->q($team->nameKurz).')');		
+		$query->where('hb_spiel.'.$db->qn('saison').' = '.$db->q(self::getSeason()));
         $query->order($db->qn('datumZeit'));
         $db->setQuery($query);
         $schedule = $db->loadObjectList();

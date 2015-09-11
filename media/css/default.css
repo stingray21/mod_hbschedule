@@ -1,0 +1,13 @@
+div.hbschedule table {
+	text-align: center;
+}
+
+@media (max-width: 979px) {
+	div.hbschedule table {
+		font-size: 0.7em;
+	}
+
+	div.hbschedule table th {
+		font-size: 1em;
+	}
+}
