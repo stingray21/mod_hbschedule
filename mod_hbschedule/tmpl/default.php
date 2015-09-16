@@ -15,7 +15,9 @@ if (count($schedule)>0)
 	//echo "<p>".JText::_('DESC_MODULE')."</p>";
 	
 	echo (!empty($headline)) ?  '<h3>'.$headline.'</h3>'."\n\n" : '';
-	
+	?>
+<div class="team-table">	
+	<?php
 	if ($posLeague == 'above') {
 		echo '<p>'.JText::_('MOD_HBSCHEDULE_LEAGUE').': '.
 				$team->liga.' ('.$team->ligaKuerzel.')</p>';
@@ -46,12 +48,12 @@ if (count($schedule)>0)
 			<tr<?php echo $row->highlight ? ' class= "highlighted"' : '';?>>
 				<td class="lesser4mobile"><?php echo JHtml::_('date', $row->datum, 'D', $timezone);?></td>
 				<?php 
-				if ($dateformat) { 
+				if ($dateformat === 'words') { 
+					echo '<td>'.JHtml::_('date', $row->datum, 'j. M.', $timezone).'</td>';
+				} else { 
 					echo '<td>'.JHtml::_('date', $row->datum, 'd.m.', $timezone).
 							'<span class="less4mobile">'.JHtml::_('date', $row->datum, 'y', $timezone).'</span>'.
 						'</td>';
-				} else { 
-					echo '<td>'.JHtml::_('date', $row->datum, 'j. M.', $timezone).'</td>';
 				}  ?>
 				<td><?php echo JHtml::_('date', $row->uhrzeit, 'H:i', $timezone); 
 					?><span class="less4mobile"> <?php echo JText::_('MOD_HBSCHEDULE_TIMEUNIT');?></span></td>
@@ -105,4 +107,6 @@ if (count($schedule)>0)
 	}
 	echo '</div>';
 }
+?>
+</div>
 	

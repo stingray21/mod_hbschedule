@@ -184,7 +184,7 @@ class modHbScheduleHelper
 			case 'titleandteam':
 			default:
 				$headline = JText::_('MOD_HBSCHEDULE_SCHEDULE').' - '.
-					$team->team;
+					$team->mannschaft;
 				break;
 		}
         return $headline;

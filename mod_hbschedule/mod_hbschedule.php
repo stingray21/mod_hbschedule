@@ -6,8 +6,11 @@ defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 //echo __FILE__.'('.__LINE__.'):<pre>';print_r($params);echo'</pre>';
 $posLeague = $params->get('posLeague');
 $headlineOption = $params->get('headline');
-$indicator = $params->get('indicator');
-$reports = $params->get('reports');
+$indicator = (boolean) $params->get('indicator', false);
+$reports = (boolean) $params->get('reports', false);
+$timezone = (boolean) $params->get('timezone', false); //true: user-time, false:server-time
+//echo __FILE__.'('.__LINE__.'):<pre>'.$timezone.' -> '.gettype($timezone).'</pre>';
+$dateformat = $params->get('dateformat', true); 
 
 // get parameter from component menu item
 $menuitemid = JRequest::getInt('Itemid');
@@ -17,20 +20,20 @@ if ($menuitemid)
 	$menuparams = $menu->getParams( $menuitemid );
 }
 $teamkey = $menuparams->get('teamkey');
-$timezone = $menuparams->get('timezone'); //true: user-time, false:server-time
-$dateformat = $menuparams->get('dateformat', true); //true: user-time, false:server-time
+//echo __FILE__.'('.__LINE__.'):<pre>'.$teamkey.'</pre>';
 
 // Include the syndicate functions only once
 require_once dirname(__FILE__).'/helper.php';
 
-$team = modHbScheduleHelper::getTeam($teamkey);
-$schedule = modHbScheduleHelper::getSchedule($team);
-$tallyReports = modHbScheduleHelper::getReportNr($team);
+$team = modHbscheduleHelper::getTeam($teamkey);
+//echo __FILE__.'('.__LINE__.'):<pre>';print_r($team);echo'</pre>';
+$schedule = modHbscheduleHelper::getSchedule($team);
+$tallyReports = modHbscheduleHelper::getReportNr($team);
 if ($tallyReports < 1) {
 	$reports = false;
 }
 //echo "<pre>"; print_r($schedule); echo "</pre>";
-$headline = modHbScheduleHelper::getHeadline($headlineOption, $team);
+$headline = modHbscheduleHelper::getHeadline($headlineOption, $team);
 
 //Returns the path of the layout file
 require JModuleHelper::getLayoutPath('mod_hbschedule', $params->get('layout', 'default'));

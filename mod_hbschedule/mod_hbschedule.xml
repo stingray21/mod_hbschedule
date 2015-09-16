@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE PUBLIC>
-<extension type="module" version="2.5.0" client="site" method="install">
+<extension type="module" version="2.5.0" client="site" method="upgrade">
 	<!-- Name of the Module -->
 	<name>HB Schedule</name> 
 	<!-- Name of the Author -->
 	<author>Jochen Stehle</author> 
 	<!-- Version Date of the Module -->
-	<creationDate>10.09.2015</creationDate> 
+	<creationDate>15.09.2015</creationDate> 
 	<!-- Copyright information -->
 	<copyright>All rights reserved by Jochen Stehle</copyright> 
 	<!-- License Information -->
@@ -16,7 +16,7 @@
 	<!-- Author's website -->
 	<authorUrl></authorUrl> 
 	<!-- Module version number -->
-	<version>0.9.21</version> 
+	<version>0.9.22</version> 
 	<!-- Description of what the module does -->
 	<description>Provides the season standings of a team</description>
 	<!-- Listing of all files that should be installed for the module to function -->
@@ -60,56 +60,56 @@
 				<field 
 					name="posLeague" 
 					type="list" 
-					default="above" 
-					label="LABEL_MODHBSCHEDULE_POSITIONLEAGUE" 
-					description="DESC_MODHBSCHEDULE_POSITIONLEAGUE">
-						<option value="above">MODHBSCHEDULE_POSITIONLEAGUE_ABOVE</option>
-						<option value="underneath">MODHBSCHEDULE_POSITIONLEAGUE_UNDERNEATH</option>
-						<option value="not">MODHBSCHEDULE_POSITIONLEAGUE_NOT</option>
+					default="underneath" 
+					label="LABEL_MOD_HBSCHEDULE_POSITIONLEAGUE" 
+					description="DESC_MOD_HBSCHEDULE_POSITIONLEAGUE">
+						<option value="above">MOD_HBSCHEDULE_POSITIONLEAGUE_ABOVE</option>
+						<option value="underneath">MOD_HBSCHEDULE_POSITIONLEAGUE_UNDERNEATH</option>
+						<option value="not">MOD_HBSCHEDULE_POSITIONLEAGUE_NOT</option>
 				</field>
 				<field 
 					name="headline" 
 					type="list" 
-					default="above" 
-					label="LABEL_MODHBSCHEDULE_HEADLINE" 
-					description="DESC_MODHBSCHEDULE_HEADLINE">
-						<option value="title">MODHBSCHEDULE_HEADLINE_TITLE</option>
-						<option value="titleandteam">MODHBSCHEDULE_HEADLINE_TITLEANDTEAM</option>
-						<option value="not">MODHBSCHEDULE_HEADLINE_NOT</option>
+					default="title" 
+					label="LABEL_MOD_HBSCHEDULE_HEADLINE" 
+					description="DESC_MOD_HBSCHEDULE_HEADLINE">
+						<option value="title">MOD_HBSCHEDULE_HEADLINE_TITLE</option>
+						<option value="titleandteam">MOD_HBSCHEDULE_HEADLINE_TITLEANDTEAM</option>
+						<option value="not">MOD_HBSCHEDULE_HEADLINE_NOT</option>
 				</field>
 				<field 
 					name="dateformat" 
 					type="list" 
 					default="numeric" 
-					label="LABEL_MODHBSCHEDULE_DATEFORMAT" 
-					description="DESC_MODHBSCHEDULE_DATEFORMAT">
-						<option value="numeric">MODHBSCHEDULE_DATEFORMAT_NUMERIC</option>
-						<option value="words">MODHBSCHEDULE_DATEFORMAT_WORDS</option>
+					label="LABEL_MOD_HBSCHEDULE_DATEFORMAT" 
+					description="DESC_MOD_HBSCHEDULE_DATEFORMAT">
+						<option value="numeric">MOD_HBSCHEDULE_DATEFORMAT_NUMERIC</option>
+						<option value="words">MOD_HBSCHEDULE_DATEFORMAT_WORDS</option>
 				</field>
 				<field 
 					name="timezone" 
 					type="list" 
-					default="above" 
-					label="LABEL_MODHBSCHEDULE_TIMEZONE" 
-					description="DESC_MODHBSCHEDULE_TIMEZONE">
-						<option value="true">MODHBSCHEDULE_TIMEZONE_USER</option>
-						<option value="false">MODHBSCHEDULE_TIMEZONE_SERVER</option>
+					default="0" 
+					label="LABEL_MOD_HBSCHEDULE_TIMEZONE" 
+					description="DESC_MOD_HBSCHEDULE_TIMEZONE">
+						<option value="1">MOD_HBSCHEDULE_TIMEZONE_USER</option>
+						<option value="0">MOD_HBSCHEDULE_TIMEZONE_SERVER</option>
 				</field>
 				<field
 					name="indicator"
 					type="list"
-					default="default"
-					label="LABEL_MODHBSCHEDULE_INDICATOR"
-					description="DESC_MODHBSCHEDULE_INDICATOR">
+					default="0"
+					label="LABEL_MOD_HBSCHEDULE_INDICATOR"
+					description="DESC_MOD_HBSCHEDULE_INDICATOR">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
 				<field
 					name="reports"
 					type="list"
-					default="default"
-					label="LABEL_MODHBSCHEDULE_REPORTS"
-					description="DESC_MODHBSCHEDULE_REPORTS">
+					default="0"
+					label="LABEL_MOD_HBSCHEDULE_REPORTS"
+					description="DESC_MOD_HBSCHEDULE_REPORTS">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>

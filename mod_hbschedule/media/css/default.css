@@ -1,3 +1,16 @@
+div.hbschedule p {
+	color: #999;
+	text-align: right;
+}
+
+div.hbschedule p:hover {
+	color: #555;
+}
+
+.ownTeam {
+	font-weight: bold;
+}
+
 div.hbschedule table {
 	text-align: center;
 }
