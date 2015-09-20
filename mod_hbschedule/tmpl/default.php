@@ -57,7 +57,7 @@ if (count($schedule)>0)
 				}  ?>
 				<td><?php echo JHtml::_('date', $row->uhrzeit, 'H:i', $timezone); 
 					?><span class="less4mobile"> <?php echo JText::_('MOD_HBSCHEDULE_TIMEUNIT');?></span></td>
-				<td><a href="./index.php/hallen#<?php echo $row->hallenNr?>"><?php echo $row->hallenNr?></a></td>
+				<td><a href="./index.php/<?php echo $gymlink.'?focus='.$row->hallenNr.'#gym'.$row->hallenNr?>"><?php echo $row->hallenNr?></a></td>
 				<td class="<?php echo $row->heimspiel ? ' ownTeam' : '';?>"><?php echo $row->heim;?></td>
 				<td>-</td>
 				<td class="<?php echo !$row->heimspiel ? ' ownTeam' : '';?>"><?php echo $row->gast;?></td>

@@ -113,6 +113,16 @@
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
+				<field 
+					name="gymlink" 
+					type="sql" 
+					default=""
+					label="LABEL_COM_HBGYMS_GYMLINK"
+					description="DESC_COM_HBGYMS_GYMLINK"
+					query="select title, link, path from #__menu LEFT JOIN #__extensions ON extension_id = component_id WHERE published = 1 AND #__extensions.name = 'HB Gyms' order by title ASC "
+					key_field="path" value_field="title"
+				>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

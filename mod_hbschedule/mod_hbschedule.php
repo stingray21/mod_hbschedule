@@ -11,6 +11,8 @@ $reports = (boolean) $params->get('reports', false);
 $timezone = (boolean) $params->get('timezone', false); //true: user-time, false:server-time
 //echo __FILE__.'('.__LINE__.'):<pre>'.$timezone.' -> '.gettype($timezone).'</pre>';
 $dateformat = $params->get('dateformat', true); 
+$gymlink = $params->get('gymlink');
+//echo __FILE__.'('.__LINE__.'):<pre>'.$gymlink.'</pre>';
 
 // get parameter from component menu item
 $menuitemid = JRequest::getInt('Itemid');
