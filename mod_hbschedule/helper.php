@@ -67,7 +67,7 @@ class modHbScheduleHelper
 		// getting schedule of the team from the DB
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
-        $query->select('*, DATE(datumZeit) as datum, TIME(datumZeit) as uhrzeit, '.
+        $query->select('*, '.
                 'IF('.$db->qn('heim').' = '.$db->q($team->nameKurz).',1,0) as heimspiel, '.
                 'CASE '.
                 'WHEN '.$db->qn('toreHeim').' > '.$db->qn('toreGast').' THEN 1 '.
@@ -139,7 +139,7 @@ class modHbScheduleHelper
         $highlighted = false;
         foreach ($schedule as $row)
 		{
-            if (time() < strtotime($row->datum ) && !$highlighted) {
+            if (time() <= strtotime($row->datumZeit) && !$highlighted) {
                 $row->highlight = true; 
 				$highlighted = true;
             } else {

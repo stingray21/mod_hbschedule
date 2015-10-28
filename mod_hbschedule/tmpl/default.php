@@ -46,16 +46,16 @@ if (count($schedule)>0)
 	{
 		?>
 			<tr<?php echo $row->highlight ? ' class= "highlighted"' : '';?>>
-				<td class="lesser4mobile"><?php echo JHtml::_('date', $row->datum, 'D', $timezone);?></td>
+				<td class="lesser4mobile"><?php echo JHtml::_('date', $row->datumZeit, 'D', $timezone);?></td>
 				<?php 
 				if ($dateformat === 'words') { 
-					echo '<td>'.JHtml::_('date', $row->datum, 'j. M.', $timezone).'</td>';
+					echo '<td>'.JHtml::_('date', $row->datumZeit, 'j. M.', $timezone).'</td>';
 				} else { 
-					echo '<td>'.JHtml::_('date', $row->datum, 'd.m.', $timezone).
-							'<span class="less4mobile">'.JHtml::_('date', $row->datum, 'y', $timezone).'</span>'.
+					echo '<td>'.JHtml::_('date', $row->datumZeit, 'd.m.', $timezone).
+							'<span class="less4mobile">'.JHtml::_('date', $row->datumZeit, 'y', $timezone).'</span>'.
 						'</td>';
 				}  ?>
-				<td><?php echo JHtml::_('date', $row->uhrzeit, 'H:i', $timezone); 
+				<td><?php echo JHtml::_('date', $row->datumZeit, 'H:i', $timezone); 
 					?><span class="less4mobile"> <?php echo JText::_('MOD_HBSCHEDULE_TIMEUNIT');?></span></td>
 				<td><a href="./index.php/<?php echo $gymlink.'?focus='.$row->hallenNr.'#gym'.$row->hallenNr?>"><?php echo $row->hallenNr?></a></td>
 				<td class="<?php echo $row->heimspiel ? ' ownTeam' : '';?>"><?php echo $row->heim;?></td>
